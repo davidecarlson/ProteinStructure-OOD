@@ -8,6 +8,10 @@
 > **Track:** Application Track [featuring AI OnDemand]  
 > **Location:** Tsai Auditorium (CGIS S010)
 
+**Conference Materials:**
+- [GOOD25 Conference Talk (NYHCQF)](https://cfp.openondemand.org/2025/talk/NYHCQF/)
+- [Leveraging AlphaFold in Graduate Research](https://www.icds.psu.edu/leveraging-alphafold-in-graduate-research/)
+- [OSC News: Inaugural GOOD Conference Draws Strong Attendance from 10 Countries](https://www.osc.edu/press/inaugural_good_conference_draws_strong_attendance_from_10_countries)
 
 ## Description
 This project provides a web-based interface for running protein structure prediction jobs using AlphaFold 2 and AlphaFold 3 on the ICDS Roar cluster via Open OnDemand v3. The app simplifies the process of submitting and monitoring AlphaFold jobs by providing a user-friendly interface and automated job management.
