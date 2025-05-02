@@ -1,9 +1,14 @@
 # ICDS-Roar-OOD Protein Structure Prediction
 
+## Description
+This project provides a web-based interface for running protein structure prediction jobs using AlphaFold 2 and AlphaFold 3 on the ICDS Roar cluster via Open OnDemand v3. The app simplifies the process of submitting and monitoring AlphaFold jobs by providing a user-friendly interface and automated job management.
+
+## Supporting Materials
+
 > **Presented as a talk at the Global Open On Demand Conference 2025, Harvard University**  
 > **Date:** March 19, 2025, 4:00 PM – 4:25 PM (25 min)  
 > **Title:** AlphaFold accessibility: an optimized open-source OOD app for Protein Structure Prediction  
-> **Speakers:** Vinay Saji Mathew [Pennsylvania State University] , William Lai [Cornell]
+> **Speakers:** Vinay Saji Mathew [Pennsylvania State University] , William Lai [Cornell], Matt Hansen [Pennsylvania State University]
 > 
 > **Track:** Application Track [featuring AI OnDemand]  
 > **Location:** Tsai Auditorium (CGIS S010)
@@ -13,8 +18,6 @@
 - [Leveraging AlphaFold in Graduate Research](https://www.icds.psu.edu/leveraging-alphafold-in-graduate-research/)
 - [OSC News: Inaugural GOOD Conference Draws Strong Attendance from 10 Countries](https://www.osc.edu/press/inaugural_good_conference_draws_strong_attendance_from_10_countries)
 
-## Description
-This project provides a web-based interface for running protein structure prediction jobs using AlphaFold 2 and AlphaFold 3 on the ICDS Roar cluster via Open OnDemand v3. The app simplifies the process of submitting and monitoring AlphaFold jobs by providing a user-friendly interface and automated job management.
 
 ## Features
 
