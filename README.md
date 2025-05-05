@@ -5,6 +5,14 @@ This project provides a web-based interface for running protein structure predic
 
 ## Supporting Materials
 
+### Conference Materials
+- [GOOD25 Conference Talk Abstract](https://cfp.openondemand.org/2025/talk/NYHCQF/)
+- [GOOD25 Conference Presentation](/docs/Presentation.pdf)
+
+### News Articles
+- [Leveraging AlphaFold in Graduate Research](https://www.icds.psu.edu/leveraging-alphafold-in-graduate-research/)
+- [OSC News: Inaugural GOOD Conference Draws Strong Attendance from 10 Countries](https://www.osc.edu/press/inaugural_good_conference_draws_strong_attendance_from_10_countries)
+
 > **Presented as a talk at the Global Open On Demand Conference 2025, Harvard University**  
 > **Date:** March 19, 2025, 4:00 PM – 4:25 PM (25 min)  
 > **Title:** AlphaFold accessibility: an optimized open-source OOD app for Protein Structure Prediction  
@@ -12,12 +20,6 @@ This project provides a web-based interface for running protein structure predic
 > 
 > **Track:** Application Track [featuring AI OnDemand]  
 > **Location:** Tsai Auditorium (CGIS S010)
-
-**Conference Materials:**
-- [GOOD25 Conference Talk (NYHCQF)](https://cfp.openondemand.org/2025/talk/NYHCQF/)
-- [Leveraging AlphaFold in Graduate Research](https://www.icds.psu.edu/leveraging-alphafold-in-graduate-research/)
-- [OSC News: Inaugural GOOD Conference Draws Strong Attendance from 10 Countries](https://www.osc.edu/press/inaugural_good_conference_draws_strong_attendance_from_10_countries)
-
 
 ## Features
 
