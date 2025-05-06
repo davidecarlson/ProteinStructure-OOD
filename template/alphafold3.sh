@@ -20,13 +20,12 @@ cat <<EOF > "${CPU_SLURM_SCRIPT}"
 #SBATCH --partition=open
 #SBATCH --output=${CPU_LOG_FILE}
 
-singularity exec \\
+singularity run \\
     --bind ${INPUT_DIR}:/root/af_input \\
     --bind ${STRUCT}:/root/af_output \\
     --bind ${ALPHAFOLD3_WEIGHTS}:/root/models \\
     --bind ${ALPHAFOLD3_DB}:/root/public_databases \\
     ${ALPHAFOLD3_CONTAINER} \\
-    python3 /app/alphafold/run_alphafold.py \\
     --json_path=/root/af_input/$(basename "${JSON_FILE}") \\
     --model_dir=/root/models \\
     --db_dir=/root/public_databases \\
@@ -56,19 +55,18 @@ cat <<EOF > "${GPU_SLURM_SCRIPT}"
 #SBATCH --output=${GPU_LOG_FILE}
 #SBATCH --dependency=afterok:${CPU_JOB_ID}
 
-singularity exec --nv \\
+singularity run --nv \\
     --bind ${STRUCT}:/root/af_output \\
     --bind ${ALPHAFOLD3_WEIGHTS}:/root/models \\
     --bind ${ALPHAFOLD3_DB}:/root/public_databases \\
-    --bind "singularity_af3/app/alphafold/run_alphafold.py:/app/alphafold/run_alphafold.py" \\
     ${ALPHAFOLD3_CONTAINER} \\
-    python3 /app/alphafold/run_alphafold.py \\
     --json_path=${GENERATED_JSON_FILE} \\
     --model_dir=/root/models \\
     --db_dir=/root/public_databases \\
     --output_dir=/root/af_output \\
     --run_data_pipeline=false \\
-    --run_inference=true
+    --run_inference=true \\
+    --force_output_dir=true
 EOF
 
 GPU_JOB_ID=$(sbatch "${GPU_SLURM_SCRIPT}" | awk '{print $4}') || handle_error "Failed to submit GPU job"
