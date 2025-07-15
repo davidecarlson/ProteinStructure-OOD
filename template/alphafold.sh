@@ -2,9 +2,13 @@
 
 FASTA_FILE="${1}"
 WORKINGDIR="${2}"
-ACCOUNT="${3}"
-PARTITION="${4}"
-STATUS_FILE="${5}"
+#ACCOUNT="${3}"
+PARTITION="${3}"
+STATUS_FILE="${4}"
+
+module load slurm
+
+export TMPDIR=/lustre/nvwulf/scratch/$USER/temp
 
 CPU_SLURM_SCRIPT="${INPUT_DIR}/af_cpu_job.slurm"
 cat <<EOF > "${CPU_SLURM_SCRIPT}"
@@ -13,13 +17,14 @@ cat <<EOF > "${CPU_SLURM_SCRIPT}"
 #SBATCH --ntasks=4
 #SBATCH --mem=60GB
 #SBATCH --time=6:00:00
-#SBATCH --partition=open
+#SBATCH --partition=${PARTITION}
 #SBATCH --output=${CPU_LOG_FILE}
 
 singularity run \\
     -B "${ALPHAFOLD_DB}" \\
     -B "${WORKINGDIR}" \\
     -B "/tmp" \\
+    -B "/lustre/nvwulf/software/miniconda3" \\
     -B "${INPUT_DIR}" \\
     -B "singularity/app/alphafold/run_alphafold.py:/app/alphafold/run_alphafold.py" \\
     --env CUDA_VISIBLE_DEVICES=0,NVIDIA_VISIBLE_DEVICES=0,TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0 \\
@@ -51,9 +56,8 @@ cat <<EOF > "${GPU_SLURM_SCRIPT}"
 #SBATCH --nodes=1
 #SBATCH --ntasks=8
 #SBATCH --mem=60GB
-#SBATCH --gres=gpu:a100_3g:1
+#SBATCH --gres=gpu:h200:1
 #SBATCH --time=10:00:00
-#SBATCH --account=${ACCOUNT}
 #SBATCH --partition=${PARTITION}
 #SBATCH --output=${GPU_LOG_FILE}
 #SBATCH --dependency=afterok:${CPU_JOB_ID}
@@ -62,6 +66,7 @@ singularity run --nv \\
   -B "${ALPHAFOLD_DB}" \\
   -B "${WORKINGDIR}" \\
   -B "/tmp" \\
+  -B "/lustre/nvwulf/software/miniconda3" \\
   -B "${INPUT_DIR}" \\
   --env CUDA_VISIBLE_DEVICES=0,NVIDIA_VISIBLE_DEVICES=0,TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0 \\
   ${ALPHAFOLD_CONTAINER} \\

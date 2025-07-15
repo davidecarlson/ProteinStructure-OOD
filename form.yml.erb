@@ -1,12 +1,13 @@
 ---
 title: "Protein Prediction"
-cluster: "rc"
+cluster: "nvwulf"
 
 form:
   - session_type
-  - auto_accounts
+ # - auto_accounts
   - auto_queues
   - working_directory
+  - af3_params
   - protein_sequence
   - agree_terms
   - bc_email_on_started
@@ -14,21 +15,21 @@ form:
 attributes:
   session_type:
     label: "Protein Prediction Engine"
-    help: "Note: ESMFold and RFDiffusion will be coming soon"
+    help: "Choose whether to use Alphafold 2 or Alphafold 3."
     widget: select
     options:
       - ["AlphaFold 2", "AlphaFold 2", data-hide-agree-terms: true, data-set-agree-terms: true]
       - ["AlphaFold 3", "AlphaFold 3", data-hide-agree-terms: false, data-set-agree-terms: false]
 
-  auto_accounts:
-    label: "GPU Account"
-    help: "Note: Account with access to GPU resources required"
+ # auto_accounts:
+ #   label: "GPU Account"
+ #   help: "Note: Account with access to GPU resources required"
 
   protein_sequence:
     widget: text_area
     label: "Input Sequence"
-    help: "Enter the input sequence"
-
+    help: "Enter the input sequence in Fasta format (Alphafold2) or in JSON format (Alphafold3)"
+  
   agree_terms:
     label: "I agree to Google's Terms of Service"
     widget: check_box
@@ -40,7 +41,14 @@ attributes:
     help: "Output files will be saved here (scratch space recommended)"
     widget: "path_selector"
     show_files: false
-    value: "/scratch/<%= ENV['USER'] %>"
+    value: "/lustre/nvwulf/scratch/<%= ENV['USER'] %>"
+
+  af3_params:
+    label: "Alphafold3 model parameters directory"
+    help: "If using, Alphafold3, you must provide your own copy of the model parameters file. Please provide the path to the directory that contains this file.  To obtain the model parameters see <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfWZAgo1aYk0O4MuAXZj8xRQ8DafeFJnldNOnh_13qAx2ceZw/viewform\" target=\"_blank\">here</a>."
+    widget: "path_selector"
+    show_files: false
+    value: "/lustre/nvwulf/home/<%= ENV['USER'] %>/AF3_weights"
 
   bc_email_on_started:
     label: "I would like to receive an email when the session starts and completes"

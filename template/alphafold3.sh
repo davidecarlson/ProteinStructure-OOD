@@ -2,9 +2,12 @@
 
 JSON_FILE="${1}"
 WORKINGDIR="${2}"
-ACCOUNT="${3}"
-PARTITION="${4}"
-STATUS_FILE="${5}"
+#ACCOUNT="${3}"
+PARTITION="${3}"
+STATUS_FILE="${4}"
+ALPHAFOLD3_WEIGHTS="${5}"
+
+module load slurm
 
 NAME=$(grep -oi '"name": *"[^"]*"' "${JSON_FILE}" | sed 's/"name": *"\([^"]*\)"/\1/I' | tr '[:upper:]' '[:lower:]') || handle_error "Failed to extract 'name' from JSON"
 echo "Debug: Name from JSON input (lowercased, original hyphens): ${NAME}"
@@ -22,15 +25,16 @@ cat <<EOF > "${CPU_SLURM_SCRIPT}"
 #SBATCH --cpus-per-task=24
 #SBATCH --mem=120GB
 #SBATCH --time=6:00:00
-#SBATCH --partition=open
+#SBATCH --partition=${PARTITION}
 #SBATCH --output=${CPU_LOG_FILE}
 
-singularity run \\
+singularity exec \\
     --bind ${INPUT_DIR}:/root/af_input \\
+    --bind ${ALPHAFOLD3_BASE}:/root/alphafold3 \\
     --bind ${STRUCT}:/root/af_output \\
     --bind ${ALPHAFOLD3_WEIGHTS}:/root/models \\
     --bind ${ALPHAFOLD3_DB}:/root/public_databases \\
-    ${ALPHAFOLD3_CONTAINER} \\
+    ${ALPHAFOLD3_CONTAINER} python /root/alphafold3/run_alphafold.py \\
     --json_path=/root/af_input/$(basename "${JSON_FILE}") \\
     --model_dir=/root/models \\
     --db_dir=/root/public_databases \\
@@ -55,18 +59,18 @@ cat <<EOF > "${GPU_SLURM_SCRIPT}"
 #SBATCH --nodes=1
 #SBATCH --ntasks=8
 #SBATCH --mem=60GB
-#SBATCH --gres=gpu:a100_3g:1
+#SBATCH --gres=gpu:h200:1
 #SBATCH --time=10:00:00
-#SBATCH --account=${ACCOUNT}
 #SBATCH --partition=${PARTITION}
 #SBATCH --output=${GPU_LOG_FILE}
 #SBATCH --dependency=afterok:${CPU_JOB_ID}
 
-singularity run --nv \\
+singularity exec --nv \\
     --bind ${STRUCT}:/root/af_output \\
+    --bind ${ALPHAFOLD3_BASE}:/root/alphafold3 \\
     --bind ${ALPHAFOLD3_WEIGHTS}:/root/models \\
     --bind ${ALPHAFOLD3_DB}:/root/public_databases \\
-    ${ALPHAFOLD3_CONTAINER} \\
+    ${ALPHAFOLD3_CONTAINER} python /root/alphafold3/run_alphafold.py \\
     --json_path=${GENERATED_JSON_FILE} \\
     --model_dir=/root/models \\
     --db_dir=/root/public_databases \\
