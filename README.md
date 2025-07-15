@@ -1,7 +1,7 @@
 # ICDS-Roar-OOD Protein Structure Prediction
 
 ## Description
-This project provides a web-based interface for running protein structure prediction jobs using AlphaFold 2 and AlphaFold 3 on the ICDS Roar cluster via Open OnDemand v3. The app simplifies the process of submitting and monitoring AlphaFold jobs by providing a user-friendly interface and automated job management.
+This project provides a web-based interface for running protein structure prediction jobs using AlphaFold 2 and AlphaFold 3 on Stony Brook University's NVwulf cluster via Open OnDemand v4. The app simplifies the process of submitting and monitoring AlphaFold jobs by providing a user-friendly interface and automated job management.
 
 ## Supporting Materials
 
