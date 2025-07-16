@@ -86,7 +86,7 @@ singularity run --nv \\
   --db_preset=full_dbs \\
   --model_preset=multimer \\
   --num_multimer_predictions_per_model=1 \\
-  --use_gpu_relax=True \\
+  --use_gpu_relax=False \\
   --models_to_relax=all \\
   --benchmark=False \\
   --use_precomputed_msas=True \\

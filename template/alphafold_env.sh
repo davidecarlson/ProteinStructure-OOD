@@ -22,7 +22,7 @@ export UNIPROT_PATH="${ALPHAFOLD_DB}/uniprot/uniprot.fasta"
 export PDB_SEQRES_PATH="${ALPHAFOLD_DB}/pdb_seqres/pdb_seqres.txt"
 export UNIREF30_PATH="${ALPHAFOLD_DB}/uniref30/UniRef30_2021_03"
 export BFD_PATH="${ALPHAFOLD_DB}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt"
-export ALPHAFOLD_CONTAINER="/lustre/nvwulf/software/alphafold_sifs/2.3.2/alphafold_2.3.2-1.sif"
+export ALPHAFOLD_CONTAINER="/lustre/nvwulf/software/alphafold_sifs/2.3.2/alphafold-2.3.2.sif"
 
 export HHBLITS_BINARY_PATH="/lustre/nvwulf/software/miniconda3/envs/hhsuite/bin/hhblits"
 
